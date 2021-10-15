@@ -42,6 +42,8 @@ with following custom columns:
 
 Using Azure Maps API to get location information on nearest gas station to button press events. See also [ARM template](AzureMaps_ARM.json)
 
+![AzureMaps flow](docs/AzureMaps-flow.png)
+
 ## Power Automate flow Spotify
 
 ### Environment variables
@@ -65,8 +67,4 @@ Issue Song URI (in the web player)
 
 ### workflow
 
-TODO insert screenshot
-
-- Bing Maps API
-- Dataverse
-- Flic
+![PetrolRecords flow](docs/PetrolRecords-flow.png)

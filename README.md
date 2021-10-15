@@ -47,7 +47,7 @@ Uses Azure Maps API server to get location information on nearest gas station to
 
 ## Power Automate Flows
 
-### Spotify
+### Play Victory Song
 
 #### Environment variables
 
@@ -66,7 +66,7 @@ Uses Azure Maps API server to get location information on nearest gas station to
 
 ![Spotify flow](docs/PetrolPush-FlowSpotify.png)
 
-### Azure Maps
+### Get Petrol Station from Azure Maps
 
 #### Parameters
 * Latitude

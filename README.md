@@ -20,6 +20,10 @@ We want to show the gas stations as red/amber/green pins on a map in a canvas ap
 
 is working with the built-in maps component, data is stored in Dataverse
 
+![app details](docs/App-Details.png)
+
+![app map](docs/App-Map.png)
+
 ## Dataverse Tables
 
 - Petrol Stations
@@ -37,7 +41,7 @@ with following custom columns:
 
 ## Azure Maps
 
-Using Azure Maps API to get location information on nearest gas station to button press events.
+Using Azure Maps API to get location information on nearest gas station to button press events. See also [ARM template](AzureMaps_ARM.json)
 
 ## Power Automate flow Spotify
 

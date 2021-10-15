@@ -32,8 +32,7 @@ with following custom columns:
 ## Spotify API
 
 - App registration
-- create custom connector
-- Set permission scope to
+- Custom connector is included in the solution
 
 ## Azure Maps
 
@@ -44,7 +43,8 @@ Using Azure Maps API to get location information on nearest gas station to butto
 ### Environment variables
 
 Device ID (get through API)
-Song URI (in the web player)
+Petrol Song URI (in the web player)
+Issue Song URI (in the web player)
 
 ### workflow
 

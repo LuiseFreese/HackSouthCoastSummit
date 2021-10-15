@@ -14,9 +14,9 @@ We use the three event types of our Flic buttons to indicate if
 - A gas station ran out of fuel
 - There is an issue at gas station (long queue)
 
-The gas stations are shown as red/amber/green pins on a map in a Power Apps canvas app
+The gas stations are shown as red/amber/green pins on a map in a PowerApps canvas app
 
-## Canvas App
+## PowerApps Canvas App
 
 * Uses the built-in maps component
 * Data is stored in Dataverse
@@ -25,12 +25,14 @@ The gas stations are shown as red/amber/green pins on a map in a Power Apps canv
 
 ![app map](docs/App-Map.png)
 
-## Dataverse Tables
+## Dataverse
+
+The following tables are part of the solution:
 
 * Petrol Stations
 * Availabilities
 
-with following custom columns:
+With following custom columns:
 
 ![datamodel](/docs/PetrolPush-datamodel.png)
 
@@ -45,15 +47,17 @@ Uses Azure Maps API server to get location information on nearest gas station to
 
 ![AzureMaps flow](docs/AzureMaps-flow.png)
 
-## Power Automate flow Spotify
+## Power Automate Flows
 
-### Environment variables
+### Spotify
 
-Device ID (get through API)
-Petrol Song URI (in the web player)
-Issue Song URI (in the web player)
+#### Environment variables
 
-### workflow
+* Device ID (get through API)
+* Petrol Song URI (in the web player)
+* Issue Song URI (in the web player)
+
+#### Workflow
 
 * Trigger: When availability changes to `petrol`
 * Action: Get all available Spotify devices
@@ -64,10 +68,12 @@ Issue Song URI (in the web player)
 
 ![Spotify flow](docs/PetrolPush-FlowSpotify.png)
 
-## Power Automate Flows
+### Azure Maps
 
-## Azure Maps
+#### Parameters
+* Latitude
+* Longitude
 
-### Workflow
+#### Workflow
 
 ![PetrolRecords flow](docs/PetrolRecords-flow.png)

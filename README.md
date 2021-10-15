@@ -45,8 +45,6 @@ With following custom columns:
 
 Uses Azure Maps API server to get location information on nearest gas station to button press events. See also [ARM template](src/AzureMaps_ARM.json)
 
-![AzureMaps flow](docs/AzureMaps-flow.png)
-
 ## Power Automate Flows
 
 ### Spotify
@@ -75,5 +73,9 @@ Uses Azure Maps API server to get location information on nearest gas station to
 * Longitude
 
 #### Workflow
+
+![AzureMaps flow](docs/AzureMaps-flow.png)
+
+### Petrol Records Flow
 
 ![PetrolRecords flow](docs/PetrolRecords-flow.png)

@@ -1,6 +1,6 @@
 # HackSouthCoastSummit
 
-![Petrol Push Logo](Petrol%20Push.png)
+![Petrol Push Logo](docs/Petrol%20Push.png)
 
 Team Working on it - Petrol Push
 
@@ -40,7 +40,7 @@ with following custom columns:
 
 ## Azure Maps
 
-Using Azure Maps API to get location information on nearest gas station to button press events. See also [ARM template](AzureMaps_ARM.json)
+Using Azure Maps API to get location information on nearest gas station to button press events. See also [ARM template](src/AzureMaps_ARM.json)
 
 ![AzureMaps flow](docs/AzureMaps-flow.png)
 

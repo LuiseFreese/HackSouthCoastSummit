@@ -68,3 +68,7 @@ Issue Song URI (in the web player)
 ### workflow
 
 ![PetrolRecords flow](docs/PetrolRecords-flow.png)
+
+## Twilio API
+
+Send an SMS with Twilio in case that availability is `issue`.

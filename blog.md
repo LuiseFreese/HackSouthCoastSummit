@@ -44,7 +44,7 @@ This can be seen on the below screenshot.
 
 Straight from the beginning of the hackathon, we took care of documenting our architecture decisions and how we would implement them. We set up a [GitHub repository](https://github.com/LuiseFreese/HacksouthCoastSummit), invited everyone in the team so they could commit their files. We continued to document all major steps so that everyone could use this as a reference to explain our solution, although each member was only in charge of their workload. Getting all information and documenting while building ensured accuracy but also gave an opportunity to think through the app and reflect on decisions.
 
-We also published the solution itself in this repository to give community the chance to play with our app
+Documentation includes screenshots of the flows, explains the data model and environment variables. We also published the solution itself in this repository to give community the chance to play with our app.
 
 ## What can we learn from this epic quest? (everybody)
 

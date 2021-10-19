@@ -32,7 +32,8 @@ When a pin is selected, the info card is shown. This is defined by setting the `
 - Postal code
 - Modified on (to know when the station's status was last updated)
 
-
+This can be seen on the below screenshot.
+![Properties pane of the map control with fields expanded and showing "name", "address", "postal code" and "modified on"](docs/App-MapFields.png)
 
 ## The custom connector to Azure maps (Lee)
 

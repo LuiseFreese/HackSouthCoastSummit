@@ -54,3 +54,4 @@ Documentation includes screenshots of the flows, explains the data model and env
   - technical solution
   - learning
   - team spirit
+- if you build/create something you are a developer

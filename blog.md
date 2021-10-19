@@ -46,6 +46,16 @@ To work around this, we created an Azure Maps resource in Azure. Azure Maps can 
 
 ## The Spotify connector for the vibes (Yannick)
 
+We like to celebrate victories and help each other in times of need, and what better way than use music for this? We have a sound system in the office connected to Spotify so let's use that to keep everyone updated on things that happen on the road!
+A new Power Automate flow will trigger every time a new petrol station status is logged, excluding when no petrol was available. In the case someone found Petrol at a gas status, we get super excited for our colleague and play [Fuel by Metallica](https://open.spotify.com/track/6FUwPb4mGlUDbx42uspXaZ?si=127b17aad3f2448d) in the office to have a small party. When someone gets in trouble, for whatever reason, we play [Trouble by Coldplay](https://open.spotify.com/track/0R8P9KfGJCDULmlEoBagcO?si=97cdd52cd87449c5) (so we know we need to rush to rescue) and a text message is sent to the manager.
+
+Integrating with Spotify isn't too difficult (the API is well-document) but requires the creation of a custom connector with following API actions:
+- [Get a User's Available Devices](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-users-available-devices): fetch a list of all devices currently connected to the Spotify service
+- [Start/Resume a User's Playback](https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback): play a song on a specific device
+
+When combining both, we can first fetch all connected devices and then filter them on the device id of our office sound system. If the device is connected, we can play the appropriate song for the occasion with the second API call.  
+And lastly, for the text message we'll use Twilio. Luckily they have an existing connector within Power Automate so it's only a matter of registering for a Twilio account, getting a number to send messages from and configuring the action in our flow.
+
 ## The princess and the push (Luise)
 
 Straight from the beginning of the hackathon, we took care of documenting our architecture decisions and how we would implement them. We set up a [GitHub repository](https://github.com/LuiseFreese/HacksouthCoastSummit), invited everyone in the team so they could commit their files. We continued to document all major steps so that everyone could use this as a reference to explain our solution, although each member was only in charge of their workload. Getting all information and documenting while building ensured accuracy but also gave an opportunity to think through the app and reflect on decisions.

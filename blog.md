@@ -5,9 +5,10 @@
 ## The flic and the flow (Tomasz)
 
 ## The canvas app (Carmen)
-With the data stored in Dataverse, the canvas app can be created to display the available information and inform the people where they can find fuel. The canvas app consists of a header (with the company logo, name and refresh icon) and a map control. 
 
-We are using the built-in map control, which allows us to display the gas stations with their appropriate color, automatically center on the user's current location and display additional information about each gas station when selecting the location pin. 
+With the data stored in Dataverse, the canvas app can be created to display the available information and inform the people where they can find fuel. The canvas app consists of a header (with the company logo, name and refresh icon) and a map control.
+
+We are using the built-in map control, which allows us to display the gas stations with their appropriate color, automatically center on the user's current location and display additional information about each gas station when selecting the location pin.
 
 To get the location pins on the map, we added the Dataverse table as a source in the `Items` property of the map control. We are currently not doing any filtering, but this could be added if needed. The latitude, longitude, labels and colors is each contained in a specific column within the data source. These are provided as values for the following properties (where the text between quotes is the name of the column in the Dataverse table):
 
@@ -17,11 +18,11 @@ To get the location pins on the map, we added the Dataverse table as a source in
 - `ItemsColors` = `"woi_color"`
 
 The `woi_colors` columns is defined as a calculated column that is influenced by the value of the `Petrol Status` column in the same table. `Petrol Status` contains the last known status of fuel at the respective station. The colors are defined as hex values with the following mapping:
-| Last Known Status | Color     | Color name  |
+| Last Known Status | Color | Color name |
 |-------------------|-----------|-------------|
-| Petrol            | "#66FF00" | Light Green |
-| No petrol         | "#FF0000" | Red         |
-| Issue             | "#FFBF00" | Amber       |
+| Petrol | "#66FF00" | Light Green |
+| No petrol | "#FF0000" | Red |
+| Issue | "#FFBF00" | Amber |
 
 The color of the grouped pins is defined by the `PinColor` property of the map control. It is set to `Green`, which is a darker color than the green used for the stations with fuel.
 
@@ -41,4 +42,13 @@ This can be seen on the below screenshot.
 
 ## The princess and the push (Luise)
 
+Straight from the beginning of the hackathon, we took care of documenting our architecture decisions and how we would implement them. We set up a GitHub repository, invited everyone in the team so they could commit their files. We continued to document all major steps so that everyone could use this as a reference to explain our solution, although each member was only in charge of their workload. Getting all information and documenting while building ensured accuracy but also gave an opportunity to think through the app and reflect on decisions.
+
 ## What can we learn from this epic quest? (everybody)
+
+- do things the right way
+- take care of documentation
+- team of diverse backgrounds, experiences and perspectives leads to great outcomes regarding
+  - technical solution
+  - learning
+  - team spirit

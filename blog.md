@@ -48,7 +48,7 @@ We also published the solution itself in this repository to give community the c
 
 ## What can we learn from this epic quest? (everybody)
 
-- do things the right way
+- do things the right way instead of trying to do everything but in a messy way
 - take care of documentation
 - team of diverse backgrounds, experiences and perspectives leads to great outcomes regarding
   - technical solution

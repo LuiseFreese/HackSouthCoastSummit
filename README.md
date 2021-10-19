@@ -10,62 +10,73 @@ As there are fuel shortages in UK we wanted to have an easy solution to notify e
 
 We use the three event types of our Flic buttons to indicate if
 
-- fuel is found
-- gas station ran out of fuel
-- issue at gas station (long queue)
+- A gas station has fuel
+- A gas station ran out of fuel
+- There is an issue at gas station (long queue)
 
-We want to show the gas stations as red/amber/green pins on a map in a canvas app
+The gas stations are shown as red/amber/green pins on a map in a PowerApps canvas app
 
-## Canvas App
+## PowerApps Canvas App
 
-is working with the built-in maps component, data is stored in Dataverse
+* Uses the built-in maps component
+* Data is stored in Dataverse
 
 ![app details](docs/App-Details.png)
 
 ![app map](docs/App-Map.png)
 
-## Dataverse Tables
+## Dataverse
 
-- Petrol Stations
-- Availabilities
+The following tables are part of the solution:
 
-with following custom columns:
+* Petrol Stations
+* Availabilities
+
+With following custom columns:
 
 ![datamodel](/docs/PetrolPush-datamodel.png)
 
 ## Spotify API
 
-- App registration
-- Custom connector is included in the solution
+* App registration
+* Custom connector is included in the solution
 
 ## Azure Maps
 
-Using Azure Maps API to get location information on nearest gas station to button press events. See also [ARM template](src/AzureMaps_ARM.json)
+Uses Azure Maps API server to get location information on nearest gas station to button press events. See also [ARM template](src/AzureMaps_ARM.json)
 
-![AzureMaps flow](docs/AzureMaps-flow.png)
+## Power Automate Flows
 
-## Power Automate flow Spotify
+### Play Victory Song
 
-### Environment variables
+#### Environment variables
 
-Device ID (get through API)
-Petrol Song URI (in the web player)
-Issue Song URI (in the web player)
+* Device ID (get through API)
+* Petrol Song URI (in the web player)
+* Issue Song URI (in the web player)
 
-### workflow
+#### Workflow
 
-- Trigger: When availability changes to `petrol`
-- Action: Get all available Spotify devices
-- Action: Filter array for configured device
-- Condition: Check if device is connected
-  - TRUE: Start resume a user#s playlist
-  - FALSE: Terminate
+* Trigger: When availability changes to `petrol`
+* Action: Get all available Spotify devices
+* Action: Filter array for configured device
+* Condition: Check if device is connected
+  * TRUE: Start resume a user#s playlist
+  * FALSE: Terminate
 
 ![Spotify flow](docs/PetrolPush-FlowSpotify.png)
 
-## Power Automate flow BING maps
+### Get Petrol Station from Azure Maps
 
-### workflow
+#### Parameters
+* Latitude
+* Longitude
+
+#### Workflow
+
+![AzureMaps flow](docs/AzureMaps-flow.png)
+
+### Petrol Records Flow
 
 ![PetrolRecords flow](docs/PetrolRecords-flow.png)
 

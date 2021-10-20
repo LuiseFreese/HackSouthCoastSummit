@@ -5,7 +5,7 @@
 ## The Story (Michael)
 Just before Southcoast Summit 2021 got started, the organizers hosted the **Automate Everything - SS2021 Hackathon** where every solution revolves around flic buttons. Wait, you don't know what a flic button is? It's basically a wireless smart button that let's you control devices, apps and services. Push once, twice or hold the button and let each variant trigger a different action. There are multiple usecases in business but also in personal life in which flic buttons make your life easier. Check out the [flic homepage](https://flic.io/) the learn more.
 
-![Logo of Petrol Push](https://github.com/LuiseFreese/HackSouthCoastSummit/blob/main/docs/Petrol%20Push.png)
+![Logo of Petrol Push](https://github.com/LuiseFreese/HackSouthCoastSummit/blob/main/docs/PetrolPushTitle.png)
 
 Meet Petrol Push. A modern day organization that has a clear mission: Save kittens. There are hundreds of kittens over all britain that get stuck on trees, get lost within the urban jungle or need help in any other kind of way. Luckily Petrol Push underholds a huge fleet of volunteers to rescue kittens every day. 
 

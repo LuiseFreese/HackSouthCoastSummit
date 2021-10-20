@@ -3,6 +3,24 @@
 ![solution overview](docs/solution-overview.png)
 
 ## The Story (Michael)
+Just before Southcoast Summit 2021 got started, the organizers hosted the **Automate Everything - SS2021 Hackathon** where every solution revolves around flic buttons. Wait, you don't know what a flic button is? It's basically a wireless smart button that let's you control devices, apps and services. Push once, twice or hold the button and let each variant trigger a different action. There are multiple usecases in business but also in personal life in which flic buttons make your life easier. Check out the [flic homepage](https://flic.io/) the learn more.
+
+![Logo of Petrol Push](https://github.com/LuiseFreese/HackSouthCoastSummit/blob/main/docs/Petrol%20Push.png)
+
+Meet Petrol Push. A modern day organization that has a clear mission: Save kittens. There are hundreds of kittens over all britain that get stuck on trees, get lost within the urban jungle or need help in any other kind of way. Luckily Petrol Push underholds a huge fleet of volunteers to rescue kittens every day. 
+
+**the challenge**
+As you may know there is a petrol shortage happening right now and of course you wonder, how can Petrol Push keep up their noble mission? Flic Buttons and the Microsoft Power Platform gave them the ability to come up with a solutions to help all their volunteers in their day to day work. 
+
+**the solution**
+Every Petrol Push car got a flic button installed and whenever Petrol Push volunteers pass a gas station, they can indicate with a push of a button, wether the gas station has fuel available or not. This information gets stored on a map so every Petrol Push employer knows where fuel is available and where it's not. This way the volunteers can keep their focus on their mission. They don't need to drive around searching for fuel or worry where to gas up. The community of volunteers takes care of that. 
+
+Petrol Push cares deeply about their volunteers so they don't want to put them in danger in any way. That's why this solution comes with a little extra. Petrol Push workers don't have to check the map over and over again to see whether anything has changed. If one of the volunteers found a gas station where fule is available, the button get's pushed and the fleet will get notified with a song. That way the drivers know when to check the map for updates. 
+Within these times it might happen that our drivers get in trouble themselves, run out of gas, have a flat tire or something else. Once again, Petrol Push cares about their volunteers deeply so the flic button provides the opportunity to call other volunteers on the road for help. Once again with a song, so no other driver needs to check their phone. The position gets indicated on the map though, so that help can be arranged quickly. It's only the supervisor that get's an additional textmessage in order to provide further information.
+
+_Note: you will probably know by know, but this usecase exemplifies the ability to combine geographic location with notifications that are not based on text. In this way, we want to draw attention to how versatile Power Platform solutions are and we also want to think about the people who can only use devices in a limited way. Please use this usecase to customize it to your needs. And always remember, only as a community we are strong, so let's be inclusive._
+
+Now, let's dive into details and see how this solution actually works
 
 ## The flic and the flow (Tomasz)
 

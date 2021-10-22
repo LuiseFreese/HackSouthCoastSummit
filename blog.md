@@ -4,7 +4,7 @@
 
 ## The Story (Michael)
 
-Just before Southcoast Summit 2021 got started, the organizers hosted the **Automate Everything - SS2021 Hackathon** where every solution revolves around Flic buttons. Wait, you don't know what a Flic button is? It's basically a wireless smart button that lets you control devices, apps and services. Push once, twice or hold the button and let each variant trigger a different action. There are multiple use cases in business but also in personal life in which Flic buttons make your life easier. Check out the [Flic homepage](https://flic.io/) to learn more.
+Just before Southcoast Summit 2021 got started, the organizers hosted the **Automate Everything - SS2021 Hackathon** where every solution revolves around Flic buttons. Wait, you don't know what a Flic button is? It's basically a wireless smart button that lets you control devices, apps and services. Push once, twice or hold the button and let each variant trigger a different action. There are multiple use cases in business but also in personal life in which Flic buttons make your life easier. Check out the [Flic homepage](https://Flic.io/) to learn more.
 
 ![Logo of Petrol Push](docs/PetrolPushTitle.png)
 
@@ -14,50 +14,50 @@ Meet Petrol Push. A modern day organization that has a clear mission: Save kitte
 As you may know there is a petrol shortage happening right now and of course you wonder, how can Petrol Push keep up their noble mission? Flic Buttons and the Microsoft Power Platform gave them the ability to come up with a solutions to help all their volunteers in their day to day work.
 
 **the solution**
-Every Petrol Push car got a flic button installed and whenever Petrol Push volunteers pass a gas station, they can indicate with a push of a button, whether the gas station has fuel available or not. This information gets stored on a map so every Petrol Push employee knows where fuel is available and where it's not. This way the volunteers can keep their focus on their mission. They don't need to drive around searching for fuel or worry where to gas up. The community of volunteers takes care of that.
+Every Petrol Push car got a Flic button installed and whenever Petrol Push volunteers pass a gas station, they can indicate with a push of a button, whether the gas station has fuel available or not. This information gets stored on a map so every Petrol Push employee knows where fuel is available and where it's not. This way the volunteers can keep their focus on their mission. They don't need to drive around searching for fuel or worry where to gas up. The community of volunteers takes care of that.
 
 Petrol Push cares deeply about their volunteers so they don't want to put them in danger in any way. That's why this solution comes with a little extra. Petrol Push workers don't have to check the map over and over again to see whether anything has changed. If one of the volunteers found a gas station where fuel is available, the button gets pushed and the fleet will get notified with a song. That way the drivers know when to check the map for updates.
 
-Within these times it might happen that our drivers get in trouble themselves, run out of gas, have a flat tire or something else. Once again, Petrol Push cares about their volunteers deeply so the flic button provides the opportunity to call other volunteers on the road for help. Once again with a song, so no other driver needs to check their phone. The position gets indicated on the map though, so that help can be arranged quickly. It's only the supervisor that gets an additional text message in order to provide further information.
+Within these times it might happen that our drivers get in trouble themselves, run out of gas, have a flat tire or something else. Once again, Petrol Push cares about their volunteers deeply so the Flic button provides the opportunity to call other volunteers on the road for help. Once again with a song, so no other driver needs to check their phone. The position gets indicated on the map though, so that help can be arranged quickly. It's only the supervisor that gets an additional text message in order to provide further information.
 
 _Note: you will probably know by know, but this use case exemplifies the ability to combine geographic location with notifications that are not based on text. In this way, we want to draw attention to how versatile Power Platform solutions are and we also want to think about the people who can only use devices in a limited way. Please use this use case to customize it to your needs. And always remember, only as a community we are strong, so let's be inclusive._
 
 Now, let's dive into details and see how this solution actually works
 
-## The flic and the flow (Tomasz)
+## The Flic and the flow (Tomasz)
 
-In a big picture, the flow was built to get information about location of a driver who triggered it, next to lookup details of the closest petrol station (by using Azure Maps API). Finally to save the station's data together with status into database, so later it can be displayed with a proper color of a pin, inside the app. But in details, it's much more interesting. 
+In a big picture, the flow was built to get information about location of a driver who triggered it, next to lookup details of the closest petrol station (by using Azure Maps API). Finally to save the station's data together with status into database, so later it can be displayed with a proper color of a pin, inside the app. But in details, it's much more interesting.
 
-![Part 1 of the flow](docs/PetrolFlow - part1.png)
+![Part 1 of the flow](docs/PetrolFlow%20-%20part1.png)
 
-The flow can be triggered by any driver (1). Also, for any Flic event, but that will be desribed later. Next, bot looks up details of the button itself (2), to get its owner (3). This information will be later used to record data along with information about the driver.
+The flow can be triggered by any driver (1). Also, for any Flic event, but that will be described later. Next, bot looks up details of the button itself (2), to get its owner (3). This information will be later used to record data along with information about the driver.
 
-![Part_2_of_the_flow](docs/PetrolFlow - part2.png)
+![Part_2_of_the_flow](docs/PetrolFlow%20-%20part2.png)
 
-Next the flow calls Azure Maps custom connector via a dedicated child flow (1), by passing latitude and longitude of a driver's location. Coordinates are obtained using GPS from driver's phone that is paired with Flic button. Obviously this should be done using the action directly within the parent flow, however for some unknow reason we were facing an issue while saving process with the action inside, so we decided to move it into a childflow. Don't judge :)
-Data returned by the child flow, that represents details about the nearest petrol station is then parsed (2). 
+Next the flow calls Azure Maps custom connector via a dedicated child flow (1), by passing latitude and longitude of a driver's location. Coordinates are obtained using GPS from driver's phone that is paired with Flic button. Obviously this should be done using the action directly within the parent flow, however for some unknown reason we were facing an issue while saving process with the action inside, so we decided to move it into a child flow. Don't judge :)
+Data returned by the child flow, that represents details about the nearest petrol station is then parsed (2).
 
-Finally bot using postal code is filtering existing stations data to get a match (3). This is done using odata expression: `woi_postalcode eq '@{first(body('Parse_JSON')?['results'])?['address']?['extendedPostalCode']}'`. Then it saves its row ID into variable (4). Naturally, if there's no station under the given postal code, variable will be empty. We also made an assumption, that there can be one station for a given postal code :)
+Finally bot using postal code is filtering existing stations data to get a match (3). This is done using ODATA expression: `woi_postalcode eq '@{first(body('Parse_JSON')?['results'])?['address']?['extendedPostalCode']}'`. Then it saves its row ID into variable (4). Naturally, if there's no station under the given postal code, variable will be empty. We also made an assumption, that there can be one station for a given postal code :)
 
-![Part_3_of_the_flow](docs/PetrolFlow - part3.png)
+![Part_3_of_the_flow](docs/PetrolFlow%20-%20part3.png)
 
 Process now checks, if station's row ID is empty (1) - if yes, it means it has to be created. Creation (2) of the record takes all the details returned from Azure Maps API, like full address, station name, lat and lon, information about driver who reported it and finally - the postal code. After that row ID of the created station is being saved into variable.
 
-![Part_4_of_the_flow](docs/PetrolFlow - part4.png)
+![Part_4_of_the_flow](docs/PetrolFlow%20-%20part4.png)
 
-Now process moves to check what kind of action occured on the Flic. There are 3 possible activities:
+Now process moves to check what kind of action occurred on the Flic. There are 3 possible activities:
 
 - **Single click** - means that there's petrol on the station,
 - **Double click** - means that there's no petrol on the station,
 - **Long press** - means there's an issue and driver requires assistance.
 
-To check what action occured, we are using switch action (1). For each branch process executes the same actions, just with different statuses. First, bot creates an entry in Activities table (2), to record latest status (to one from Petrol, No petrol, Issue) for the station together with driver details who reported it. 
+To check what action occurred, we are using switch action (1). For each branch process executes the same actions, just with different statuses. First, bot creates an entry in Activities table (2), to record latest status (to one from Petrol, No petrol, Issue) for the station together with driver details who reported it.
 
-After that is done, it updates status (again to one from Petrol, No petrol, Issue) of the station record itself (3). Then it saves created activity record odata id into a variable. And finally it relates records (4) - petrol station together with the created activity record.
+After that is done, it updates status (again to one from Petrol, No petrol, Issue) of the station record itself (3). Then it saves created activity record ODATA id into a variable. And finally it relates records (4) - petrol station together with the created activity record.
 
-![Part_5_of_the_flow](docs/PetrolFlow - part5.png)
+![Part_5_of_the_flow](docs/PetrolFlow%20-%20part5.png)
 
-What is also worth to mention is that the whole process is following the try-catch pattern. All actions that are executed in terms of the business logic are stored in the "Try" scope (1). If anything fails within the scope, it is caught by the "Catch" scope (2), that has it's "Run after" settings configured to only be executed if previous actions fails, times out or is skipped. 
+What is also worth to mention is that the whole process is following the try-catch pattern. All actions that are executed in terms of the business logic are stored in the "Try" scope (1). If anything fails within the scope, it is caught by the "Catch" scope (2), that has it's "Run after" settings configured to only be executed if previous actions fails, times out or is skipped.
 
 Process in the "Catch" scope first filters (3) results of the "Try" scope, using the expression `result('Try')` to leave only those entries which contain information about errors: `@equals(createArray('Failed', 'TimedOut'), '')`. Next for each such record (4) it is adding information about the details to a string variable. Finally, variable's contents is sent to admin as a notification (5) and the whole process ends up with "Failed" outcome.
 
@@ -98,9 +98,9 @@ The resulting app shows a map with all identified gas stations and their last kn
 
 ## The custom connector to Azure Maps (Lee)
 
-A key part of the solution is populating a list of petrol stations and their status based on presses of the flic button. We initially looked to use the built-in Bing maps Power Automate connector and actions to find the current address when a flic button was used. However, this would return the nearest address, which is not necessarily a petrol station (e.g. it could be a house on the opposite side of the street which is deemed nearer).
+A key part of the solution is populating a list of petrol stations and their status based on presses of the Flic button. We initially looked to use the built-in Bing maps Power Automate connector and actions to find the current address when a Flic button was used. However, this would return the nearest address, which is not necessarily a petrol station (e.g. it could be a house on the opposite side of the street which is deemed nearer).
 
-To work around this, we created an Azure Maps resource in Azure. Azure Maps can return a list of addresses within a certain radius that fit a particular "POI (point of interest) category" - in this case a petrol station. Using the `subscription-key` (API key) from the Azure Maps resource, we were able to create a custom connector in Power Automate and query for the nearest petrol stations to the longitude and latitude when the flic button was pressed.
+To work around this, we created an Azure Maps resource in Azure. Azure Maps can return a list of addresses within a certain radius that fit a particular "POI (point of interest) category" - in this case a petrol station. Using the `subscription-key` (API key) from the Azure Maps resource, we were able to create a custom connector in Power Automate and query for the nearest petrol stations to the longitude and latitude when the Flic button was pressed.
 
 ## The Spotify connector for the vibes (Yannick)
 
@@ -135,4 +135,4 @@ Since development was decentralized, it was important we could keep each other u
 Or in our case 6 x 1 = 10 (or something). Each of us has a different background, no two are the same. Because of this, we were able to share different perspectives and we were able to find the most efficient way to create the different pieces of the puzzle: e.g. Azure maps for station identification, canvas apps for a quick user interface and cloud flows for logic. Since we were not limited to one area of expertise, our solution combines the best of different worlds. In the process, we all learned from each other, either technical skills or an approach how to tackle something. And since we were all eager to learn from and share with each other, we had a lot of fun doing it. 👍🏼👍🏼
 
 ###  4. We are all developers
-Each of us is building or creating something on a daily basis, be that using no-code, low-code or code-first platforms and tools. During the hackathon, we realized that our commonalities are more important than our differences. We share a common problem-solving and solution-oriented approach. We can define logic and we do it in very similar terms (if - then - else, anyone?). We can conceptualize solutions and explain them to each other. And then each of us can find some way using their own tools to build that solution. This is what makes us developers, not the language or toolset we build things in, but the approach and mindset we share. All of us are developers, and you can be one too.
+Each of us is building or creating something on a daily basis, be that using no-code, low-code or code-first platforms and tools. During the hackathon, we realized that our commonalities are more important than our differences. We share a common problem-solving and solution-oriented approach. We can define logic and we do it in very similar terms (if - then - else, anyone?). We can conceptualize solutions and explain them to each other. And then each of us can find some way using their own tools to build that solution. This is what makes us developers, not the language or tool set we build things in, but the approach and mindset we share. All of us are developers, and you can be one too.

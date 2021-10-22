@@ -28,7 +28,7 @@ Now, let's dive into details and see how this solution actually works
 
 In a big picture, the flow was built to get information about location of a driver who triggered it, next to lookup details of the closest petrol station (by using Azure Maps API). Finally to save the station's data together with status into database, so later it can be displayed with a proper color of a pin, inside the app. But in details, it's much more interesting. 
 
-![Part_1_of_the_flow](docs/PetrolFlow - part1.png)
+![Part 1 of the flow](docs/PetrolFlow - part1.png)
 
 The flow can be triggered by any driver (1). Also, for any Flic event, but that will be desribed later. Next, bot looks up details of the button itself (2), to get its owner (3). This information will be later used to record data along with information about the driver.
 

@@ -30,18 +30,18 @@ In a big picture, the flow was built to get information about location of a driv
 
 ![Part 1 of the flow](docs/PetrolFlow%20-%20part1.png)
 
-The flow can be triggered by any driver (1). Also, for any Flic event, but that will be described later. Next, bot looks up details of the button itself (2), to get its owner (3). This information will be later used to record data along with information about the driver.
+The flow can be triggered by any driver (1️⃣). Also, for any Flic event, but that will be described later. Next, bot looks up details of the button itself (2️⃣), to get its owner (3️⃣). This information will be later used to record data along with information about the driver.
 
 ![Part 2 of the flow](docs/PetrolFlow%20-%20part2.png)
 
-Next the flow calls **Azure Maps custom connector** via a dedicated child flow (1), by passing latitude and longitude of a driver's location. Coordinates are obtained using GPS from driver's phone that is paired with Flic button. Obviously this should be done using the action directly within the parent flow, however for some _unknown reasons_ we were facing an issue while saving process with the action inside, so we decided to move it into a child flow. Don't judge 😁
-Data returned by the child flow, that represents details about the nearest petrol station is then parsed (2).
+Next the flow calls **Azure Maps custom connector** via a dedicated child flow (1️⃣), by passing latitude and longitude of a driver's location. Coordinates are obtained using GPS from driver's phone that is paired with Flic button. Obviously this should be done using the action directly within the parent flow, however for some _unknown reasons_ we were facing an issue while saving process with the action inside, so we decided to move it into a child flow. Don't judge 😁
+Data returned by the child flow, that represents details about the nearest petrol station is then parsed (2️⃣).
 
-Finally bot using postal code is filtering existing stations' data to get a match (3). This is done using ODATA expression: `woi_postalcode eq '@{first(body('Parse_JSON')?['results'])?['address']?['extendedPostalCode']}'`. Then it saves its row ID into variable (4). Naturally, if there's no station for the given postal code, variable will be empty. **We also made an assumption**, that there can be one station for a given postal code 🤷‍♂️😀
+Finally bot using postal code is filtering existing stations' data to get a match (3️⃣). This is done using ODATA expression: `woi_postalcode eq '@{first(body('Parse_JSON')?['results'])?['address']?['extendedPostalCode']}'`. Then it saves its row ID into variable (4️⃣). Naturally, if there's no station for the given postal code, variable will be empty. **We also made an assumption**, that there can be one station for a given postal code 🤷‍♂️😀
 
 ![Part 3 of the flow](docs/PetrolFlow%20-%20part3.png)
 
-Process now checks, if station's row ID is empty (1) - if yes, it means it has to be created. Creation (2) of the record takes all the details returned from Azure Maps API, like full address, station name, lat and lon, information about driver who reported it and finally - the postal code. After that row ID of the created station is being saved into variable.
+Process now checks, if station's row ID is empty (1️⃣) - if yes, it means it has to be created. Creation (2️⃣) of the record takes all the details returned from Azure Maps API, like full address, station name, lat and lon, information about driver who reported it and finally - the postal code. After that row ID of the created station is being saved into variable.
 
 ![Part 4 of the flow](docs/PetrolFlow%20-%20part4.png)
 
@@ -51,15 +51,15 @@ Now process moves to check what kind of action occurred on the Flic. There are 3
 - **Double click** - means that there's no petrol on the station,
 - **Long press** - means there's an issue and driver requires assistance.
 
-To check what action occurred, we are using switch action (1). For each branch process executes the same actions, just with different statuses. First, bot creates an entry in **Activities table** (2), to record latest status (to one from Petrol, No petrol, Issue) for the station together with driver details who reported it.
+To check what action occurred, we are using switch action (1️⃣). For each branch process executes the same actions, just with different statuses. First, bot creates an entry in **Activities table** (2️⃣), to record latest status (to one from Petrol, No petrol, Issue) for the station together with driver details who reported it.
 
-After that is done, it updates status (again to one from Petrol, No petrol, Issue) of the station record itself (3). Then it saves created activity record OData id into a variable. And finally it relates records (4) - petrol station together with the created activity record.
+After that is done, it updates status (again to one from Petrol, No petrol, Issue) of the station record itself (3️⃣). Then it saves created activity record OData id into a variable. And finally it relates records (4️⃣) - petrol station together with the created activity record.
 
 ![Part 5 of the flow](docs/PetrolFlow%20-%20part5.png)
 
-What is also worth to mention is that the whole process is built using the **try-catch pattern**. All actions that are executed in terms of the business logic are stored in the "Try" scope (1). If anything fails within the scope, it is caught by the "Catch" scope (2), that has it's "Run after" settings configured to only be executed if previous actions fails, times out or is skipped.
+What is also worth to mention is that the whole process is built using the **try-catch pattern**. All actions that are executed in terms of the business logic are stored in the "Try" scope (1️⃣). If anything fails within the scope, it is caught by the "Catch" scope (2️⃣), that has it's "Run after" settings configured to only be executed if previous actions fails, times out or is skipped.
 
-Process in the "Catch" scope first filters (3) results of the "Try" scope, using the expression `result('Try')` to leave only those entries which contain information about errors: `@equals(createArray('Failed', 'TimedOut'), '')`. Next for each such record (4) it is adding information about the details to a string variable. Finally, variable's contents is sent to admin as a notification (5) and the whole process ends up with "Failed" outcome.
+Process in the "Catch" scope first filters (3️⃣) results of the "Try" scope, using the expression `result('Try')` to leave only those entries which contain information about errors: `@equals(createArray('Failed', 'TimedOut'), '')`. Next for each such record (4️⃣) it is adding information about the details to a string variable. Finally, variable's contents is sent to admin as a notification (5️⃣) and the whole process ends up with "Failed" outcome.
 
 ## The canvas app (Carmen)
 

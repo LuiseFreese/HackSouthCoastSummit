@@ -61,7 +61,7 @@ What is also worth to mention is that the whole process is built using the **try
 
 Process in the "Catch" scope first filters (3️⃣) results of the "Try" scope, using the expression `result('Try')` to leave only those entries which contain information about errors: `@equals(createArray('Failed', 'TimedOut'), '')`. Next for each such record (4️⃣) it is adding information about the details to a string variable. Finally, variable's contents is sent to admin as a notification (5️⃣) and the whole process ends up with "Failed" outcome.
 
-## The canvas app (Carmen)
+## Show me something beautiful - The canvas app (Carmen)
 
 With the data stored in Dataverse, the canvas app can be created to display the available information and inform the people where they can find fuel. The canvas app consists of a header (with the company logo, name and refresh icon) and a map control.
 
@@ -96,13 +96,13 @@ This can be seen on the below screenshot.
 The resulting app shows a map with all identified gas stations and their last known status, indicated with the color of the pin. Selecting a specific gas station provides the user with more information on that station.
 ![Petrol Push app result with info card open](docs/App-Details.png)
 
-## The custom connector to Azure Maps (Lee)
+## We need a real map - The custom connector to Azure Maps (Lee)
 
 A key part of the solution is populating a list of petrol stations and their status based on presses of the Flic button. We initially looked to use the built-in Bing maps Power Automate connector and actions to find the current address when a Flic button was used. However, this would return the nearest address, which is not necessarily a petrol station (e.g. it could be a house on the opposite side of the street which is deemed nearer).
 
 To work around this, we created an Azure Maps resource in Azure. Azure Maps can return a list of addresses within a certain radius that fit a particular "POI (point of interest) category" - in this case a petrol station. Using the `subscription-key` (API key) from the Azure Maps resource, we were able to create a custom connector in Power Automate and query for the nearest petrol stations to the longitude and latitude when the Flic button was pressed.
 
-## The Spotify connector for the vibes (Yannick)
+## Bring me the vibes - The Spotify connector(Yannick)
 
 We like to celebrate victories and help each other in times of need, and what better way than use music for this? We have a sound system in the office connected to Spotify so let's use that to keep everyone updated on things that happen on the road!
 A new Power Automate flow will trigger every time a new petrol station status is logged, excluding when no petrol was available. In the case someone found Petrol at a gas station, we get super excited for our colleague and play [Fuel by Metallica](https://open.spotify.com/track/6FUwPb4mGlUDbx42uspXaZ?si=127b17aad3f2448d) in the office to have a small party. When someone gets in trouble, for whatever reason, we play [Trouble by Coldplay](https://open.spotify.com/track/0R8P9KfGJCDULmlEoBagcO?si=97cdd52cd87449c5) (so we know we need to rush to rescue) and a text message is sent to the manager.

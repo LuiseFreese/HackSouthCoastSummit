@@ -26,6 +26,41 @@ Now, let's dive into details and see how this solution actually works
 
 ## The flic and the flow (Tomasz)
 
+In a big picture, the flow was built to get information about location of a driver who triggered it, next to lookup details of the closest petrol station (by using Azure Maps API). Finally to save the station's data together with status into database, so later it can be displayed with a proper color of a pin, inside the app. But in details, it's much more interesting. 
+
+![Part 1 of the flow](docs/PetrolFlow - part1.png)
+
+The flow can be triggered by any driver (1). Also, for any Flic event, but that will be desribed later. Next, bot looks up details of the button itself (2), to get its owner (3). This information will be later used to record data along with information about the driver.
+
+![Part 2 of the flow](docs/PetrolFlow - part2.png)
+
+Next the flow calls Azure Maps custom connector via a dedicated child flow (1), by passing latitude and longitude of a driver's location. Coordinates are obtained using GPS from driver's phone that is paired with Flic button. Obviously this should be done using the action directly within the parent flow, however for some unknow reason we were facing an issue while saving process with the action inside, so we decided to move it into a childflow. Don't judge :)
+Data returned by the child flow, that represents details about the nearest petrol station is then parsed (2). 
+
+Finally bot using postal code is filtering existing stations data to get a match (3). This is done using odata expression: `woi_postalcode eq '@{first(body('Parse_JSON')?['results'])?['address']?['extendedPostalCode']}'`. Then it saves its row ID into variable (4). Naturally, if there's no station under the given postal code, variable will be empty. We also made an assumption, that there can be one station for a given postal code :)
+
+![Part 3 of the flow](docs/PetrolFlow - part3.png)
+
+Process now checks, if station's row ID is empty (1) - if yes, it means it has to be created. Creation (2) of the record takes all the details returned from Azure Maps API, like full address, station name, lat and lon, information about driver who reported it and finally - the postal code. After that row ID of the created station is being saved into variable.
+
+![Part 4 of the flow](docs/PetrolFlow - part4.png)
+
+Now process moves to check what kind of action occured on the Flic. There are 3 possible activities:
+
+- **Single click** - means that there's petrol on the station,
+- **Double click** - means that there's no petrol on the station,
+- **Long press** - means there's an issue and driver requires assistance.
+
+To check what action occured, we are using switch action (1). For each branch process executes the same actions, just with different statuses. First, bot creates an entry in Activities table (2), to record latest status (to one from Petrol, No petrol, Issue) for the station together with driver details who reported it. 
+
+After that is done, it updates status (again to one from Petrol, No petrol, Issue) of the station record itself (3). Then it saves created activity record odata id into a variable. And finally it relates records (4) - petrol station together with the created activity record.
+
+![Part 5 of the flow](docs/PetrolFlow - part5.png)
+
+What is also worth to mention is that the whole process is following the try-catch pattern. All actions that are executed in terms of the business logic are stored in the "Try" scope (1). If anything fails within the scope, it is caught by the "Catch" scope (2), that has it's "Run after" settings configured to only be executed if previous actions fails, times out or is skipped. 
+
+Process in the "Catch" scope first filters (3) results of the "Try" scope, using the expression `result('Try')` to leave only those entries which contain information about errors: `@equals(createArray('Failed', 'TimedOut'), '')`. Next for each such record (4) it is adding information about the details to a string variable. Finally, variable's contents is sent to admin as a notification (5) and the whole process ends up with "Failed" outcome.
+
 ## The canvas app (Carmen)
 
 With the data stored in Dataverse, the canvas app can be created to display the available information and inform the people where they can find fuel. The canvas app consists of a header (with the company logo, name and refresh icon) and a map control.
